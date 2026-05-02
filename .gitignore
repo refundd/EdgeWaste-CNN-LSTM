@@ -1,0 +1,21 @@
+# PlatformIO
+.pio/
+.vscode/
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Build & Dependency Artifacts
+managed_components/
+dependencies.lock
+*.bin
+*.elf
+*.map
+
+# OS & Environment
+.DS_Store
+*.zip
+.gemini/

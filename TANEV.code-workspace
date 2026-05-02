@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "1_collect"
+		},
+		{
+			"path": "2_train"
+		},
+		{
+			"path": "3_deploy"
+		}
+	],
+	"settings": {}
+}
