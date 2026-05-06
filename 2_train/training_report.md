@@ -63,7 +63,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 > [!IMPORTANT]
 > Augmentasi dilakukan **hanya pada training set** setelah split untuk mencegah data leakage. Class weights = 1.0 (seimbang) karena augmentasi sudah menyeimbangkan jumlah per kelas.
 
-![Distribusi Dataset](/2_train/report_grafik/4_dataset_distribution.png)
+![Distribusi Dataset](2_train/report_grafik/4_dataset_distribution.png)
 
 ---
 
