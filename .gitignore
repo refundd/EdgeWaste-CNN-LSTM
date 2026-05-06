@@ -1,21 +1,48 @@
-# PlatformIO
+# === Build & IDE ===
 .pio/
 .vscode/
-
-# Python
-venv/
+.DS_Store
 __pycache__/
 *.pyc
-*.pyo
 
-# Build & Dependency Artifacts
-managed_components/
-dependencies.lock
-*.bin
-*.elf
-*.map
+# === Python Virtual Env ===
+venv/
 
-# OS & Environment
-.DS_Store
-*.zip
-.gemini/
+# === Dataset (terlalu besar untuk git) ===
+2_train/dataset/
+
+# === Model headers besar (auto-generated, simpan .tflite saja) ===
+2_train/saved_models_split/model_cnn_data.h
+2_train/saved_models_split/model_lstm_data.h
+3_deploy/xiao_inference_espnn/src/model_cnn_data.h
+3_deploy/xiao_inference_espnn/src/model_lstm_data.h
+
+# === Old/unused models ===
+2_train/saved_models/
+2_train/models/
+2_train/utils/
+
+# === Scratch/test files ===
+2_train/scratch_*.py
+2_train/test_cnn_lstm_concept.py
+2_train/test_cnn_lstm_concept_split.py
+2_train/test_lstm.tflite
+2_train/test_manual_lstm.tflite
+
+# === Old deploy folder ===
+3_deploy/xiao_inference/
+3_deploy/TANEV_Waste_Classification.zip
+
+# === Managed components (downloaded by PlatformIO) ===
+3_deploy/xiao_inference_espnn/managed_components/
+3_deploy/xiao_inference_espnn/dependencies.lock
+
+# === ESP-IDF build configs ===
+3_deploy/xiao_inference_espnn/sdkconfig.xiao_esp32s3
+
+# === Old files ===
+1_collect/servosteppertest.ino
+1_collect/src/main_backup.txt
+
+# === Training raw log (large) ===
+2_train/training_report.txt

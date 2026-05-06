@@ -303,6 +303,16 @@ void checkSerialInput() {
       case 'k': case 'K': kelasAktif = 0; break;
       case 'p': case 'P': kelasAktif = 1; break;
       case 'o': case 'O': kelasAktif = 2; break;
+      case 'r': case 'R': 
+        for(int i=0; i<NUM_CLASSES; i++) sessionCounters[i] = 0;
+        saveSessionCounters();
+        Serial.println("\n[RESET] Counter sesi telah direset (selanjutnya mulai dari sesi_001).");
+        printKelasAktif();
+        return;
+      case 'c': case 'C':
+        Serial.println("\n[CAPTURE] Merekam sesi dari input Serial...");
+        captureSession3Seconds();
+        return;
       default: return;
     }
     Serial.printf("\n[GANTI KELAS] Kelas aktif: %s\n", CLASS_NAMES[kelasAktif]);

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <math.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_log.h"
@@ -272,16 +273,20 @@ extern "C" void app_main(void)
                         int sy = crop_y + (dy * crop_size) / dst_h;
                         uint16_t pixel = rgb565[sy * src_w + sx];
 
+                        // ESP32 camera stores RGB565 in big-endian byte order
+                        // Swap bytes for correct color extraction
+                        pixel = (pixel >> 8) | (pixel << 8);
+
                         // RGB565 → RGB888
                         uint8_t r = ((pixel >> 11) & 0x1F) << 3;
                         uint8_t g = ((pixel >> 5)  & 0x3F) << 2;
                         uint8_t b = ((pixel >> 0)  & 0x1F) << 3;
 
                         // Normalisasi ke INT8: (0-255) → (-128 to 127)
-                        int idx = (dy * dst_w + dx) * 3;
-                        cnn_input->data.int8[idx + 0] = (int8_t)(r - 128);
-                        cnn_input->data.int8[idx + 1] = (int8_t)(g - 128);
-                        cnn_input->data.int8[idx + 2] = (int8_t)(b - 128);
+                        int pixel_idx = (dy * dst_w + dx) * 3;
+                        cnn_input->data.int8[pixel_idx + 0] = (int8_t)(r - 128);
+                        cnn_input->data.int8[pixel_idx + 1] = (int8_t)(g - 128);
+                        cnn_input->data.int8[pixel_idx + 2] = (int8_t)(b - 128);
                     }
                 }
                 esp_camera_fb_return(fb);
@@ -341,11 +346,26 @@ extern "C" void app_main(void)
         int64_t lstm_us = esp_timer_get_time() - lstm_start;
 
         // === TAHAP 3: Prediksi ===
+        // Konversi INT8 ke persentase (softmax approx)
+        float scores[NUM_CLASSES];
+        float max_score = -999.0f;
+        for (int i = 0; i < NUM_CLASSES; i++) {
+            scores[i] = (float)lstm_output->data.int8[i];
+            if (scores[i] > max_score) max_score = scores[i];
+        }
+        // Softmax
+        float sum_exp = 0.0f;
+        float probs[NUM_CLASSES];
+        for (int i = 0; i < NUM_CLASSES; i++) {
+            probs[i] = expf((scores[i] - max_score) / 25.0f); // scale factor for INT8
+            sum_exp += probs[i];
+        }
         int best_class = 0;
-        int8_t best_score = lstm_output->data.int8[0];
-        for (int i = 1; i < NUM_CLASSES; i++) {
-            if (lstm_output->data.int8[i] > best_score) {
-                best_score = lstm_output->data.int8[i];
+        float best_prob = 0.0f;
+        for (int i = 0; i < NUM_CLASSES; i++) {
+            probs[i] = (probs[i] / sum_exp) * 100.0f;
+            if (probs[i] > best_prob) {
+                best_prob = probs[i];
                 best_class = i;
             }
         }
@@ -359,10 +379,10 @@ extern "C" void app_main(void)
                  NUM_FRAMES, cnn_total_us/1000, cnn_total_us/1000/NUM_FRAMES);
         ESP_LOGI(TAG, "  Temporal : %lld ms", lstm_us/1000);
         ESP_LOGI(TAG, "  TOTAL    : %lld ms", pipeline_us/1000);
-        ESP_LOGI(TAG, "  >>> Prediksi: %s (score: %d) <<<",
-                 CLASS_NAMES[best_class], best_score);
-        ESP_LOGI(TAG, "  Semua skor: kertas=%d, plastik=%d, organik=%d",
-                 lstm_output->data.int8[0], lstm_output->data.int8[1], lstm_output->data.int8[2]);
+        ESP_LOGI(TAG, "  >>> Prediksi: %s (%.1f%%) <<<",
+                 CLASS_NAMES[best_class], best_prob);
+        ESP_LOGI(TAG, "  Confidence: kertas=%.1f%%, plastik=%.1f%%, organik=%.1f%%",
+                 probs[0], probs[1], probs[2]);
         ESP_LOGI(TAG, "========================================");
 
         vTaskDelay(pdMS_TO_TICKS(5000));
