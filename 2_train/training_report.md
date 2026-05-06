@@ -145,11 +145,11 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 
 ### Grafik Training
 
-![Training Loss](/report_grafik/1_training_loss.png)
+![Training Loss](/2_train/report_grafik/1_training_loss.png)
 
-![Training Accuracy](/report_grafik/2_training_accuracy.png)
+![Training Accuracy](/2_train/report_grafik/2_training_accuracy.png)
 
-![Learning Rate Schedule](/report_grafik/5_learning_rate.png)
+![Learning Rate Schedule](/2_train/report_grafik/5_learning_rate.png)
 
 ---
 
@@ -174,7 +174,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 
 ### 4.3 Confusion Matrix
 
-![Confusion Matrix](/report_grafik/3_confusion_matrix.png)
+![Confusion Matrix](/2_train/report_grafik/3_confusion_matrix.png)
 
 | | Pred: Kertas | Pred: Plastik | Pred: Organik |
 |---|---|---|---|
@@ -197,7 +197,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 | Temporal Head (LSTM) | 62.6 KB |
 | **Total** | **776.0 KB** |
 
-![Ukuran Model](/report_grafik/6_model_size.png)
+![Ukuran Model](/2_train/report_grafik/6_model_size.png)
 
 ### 5.2 Quantization Parameters
 
@@ -233,7 +233,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 | Framework | ESP-IDF + TFLite Micro + ESP-NN |
 | Kamera | OV2640/OV3660 (320×240 RGB565) |
 
-![Waktu Inferensi](/report_grafik/7_inference_time.png)
+![Waktu Inferensi](/2_train/report_grafik/7_inference_time.png)
 
 ---
 
@@ -249,7 +249,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 | Kelas terbaik | Kertas & Organik (100% recall) |
 
 > [!TIP]
-> Semua grafik tersimpan di: `/Users/yogasatyawisesa/TANEV/2_train/report_grafik/`
+> Semua grafik tersimpan di: `/2_train/report_grafik/`
 > - `1_training_loss.png` — Kurva loss training & validation
 > - `2_training_accuracy.png` — Kurva akurasi training & validation
 > - `3_confusion_matrix.png` — Confusion matrix
