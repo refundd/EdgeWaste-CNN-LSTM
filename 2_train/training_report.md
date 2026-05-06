@@ -63,7 +63,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 > [!IMPORTANT]
 > Augmentasi dilakukan **hanya pada training set** setelah split untuk mencegah data leakage. Class weights = 1.0 (seimbang) karena augmentasi sudah menyeimbangkan jumlah per kelas.
 
-![Distribusi Dataset](2_train/report_grafik/4_dataset_distribution.png)
+![Distribusi Dataset](/report_grafik/4_dataset_distribution.png)
 
 ---
 
@@ -145,11 +145,11 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 
 ### Grafik Training
 
-![Training Loss](/Users/yogasatyawisesa/.gemini/antigravity/brain/8d6b147b-47ad-4ff0-ae96-77e2af367722/artifacts/1_training_loss.png)
+![Training Loss](/report_grafik/1_training_loss.png)
 
-![Training Accuracy](/Users/yogasatyawisesa/.gemini/antigravity/brain/8d6b147b-47ad-4ff0-ae96-77e2af367722/artifacts/2_training_accuracy.png)
+![Training Accuracy](/report_grafik/2_training_accuracy.png)
 
-![Learning Rate Schedule](/Users/yogasatyawisesa/.gemini/antigravity/brain/8d6b147b-47ad-4ff0-ae96-77e2af367722/artifacts/5_learning_rate.png)
+![Learning Rate Schedule](/report_grafik/5_learning_rate.png)
 
 ---
 
@@ -174,7 +174,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 
 ### 4.3 Confusion Matrix
 
-![Confusion Matrix](/Users/yogasatyawisesa/.gemini/antigravity/brain/8d6b147b-47ad-4ff0-ae96-77e2af367722/artifacts/3_confusion_matrix.png)
+![Confusion Matrix](/report_grafik/3_confusion_matrix.png)
 
 | | Pred: Kertas | Pred: Plastik | Pred: Organik |
 |---|---|---|---|
@@ -197,7 +197,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 | Temporal Head (LSTM) | 62.6 KB |
 | **Total** | **776.0 KB** |
 
-![Ukuran Model](/Users/yogasatyawisesa/.gemini/antigravity/brain/8d6b147b-47ad-4ff0-ae96-77e2af367722/artifacts/6_model_size.png)
+![Ukuran Model](/report_grafik/6_model_size.png)
 
 ### 5.2 Quantization Parameters
 
@@ -233,7 +233,7 @@ Setelah balanced augmentation, setiap kelas memiliki **200 sampel** (total 600).
 | Framework | ESP-IDF + TFLite Micro + ESP-NN |
 | Kamera | OV2640/OV3660 (320×240 RGB565) |
 
-![Waktu Inferensi](/Users/yogasatyawisesa/.gemini/antigravity/brain/8d6b147b-47ad-4ff0-ae96-77e2af367722/artifacts/7_inference_time.png)
+![Waktu Inferensi](/report_grafik/7_inference_time.png)
 
 ---
 
